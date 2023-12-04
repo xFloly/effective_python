@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block page_heading %}Add new Topic{% endblock %}
+
+{% block content %}
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form>
+{% endblock %}
+
+{% block page_title %}Topic{% endblock %}
+{% block custom_sidebar_title %}Topic{% endblock %}
+{% block sidebar_menu %}
+   
+{% endblock %}
+{% block top_menu %}
+{% if user.is_authenticated %}
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">{{user.username}}</a>
+      </li>
+
+      {% else %}
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+
+      {% endif %}
+<li class="nav-item"><a class="nav-link" href="{% url 'notes:note-list' %}">Go To Notes</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'notes:topic-list' %}">Go To Topics</a></li>
+
+{% endblock %}

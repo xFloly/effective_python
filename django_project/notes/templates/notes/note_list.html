@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block page_title %}List of Notes{% endblock %}
+{% block custom_sidebar_title %}List of Notes{% endblock %}
+{% block sidebar_menu %}
+{% for note in object_list %}
+    <li><a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'notes:note-detail' note.pk %}">{{ note.title }}</a></li>
+{% empty %}
+    <li>No notes yet.</li>
+{% endfor %}
+{% endblock %}
+
+{% block top_menu %}
+{% if user.is_authenticated %}
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">{{user.username}}</a>
+      </li>
+
+      {% else %}
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+
+      {% endif %}
+<li class="nav-item active"><a class="nav-link" href="{% url 'notes:note-add' %}">Add note</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'notes:topic-list' %}">Go To Topics</a></li>
+
+{% endblock %}
+{% block page_heading %}{% endblock %}
+{% block content %}{% endblock %}

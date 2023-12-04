@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block page_title %}List of Topics{% endblock %}
+{% block custom_sidebar_title %}List of Topics{% endblock %}
+{% block sidebar_menu %}
+    
+    {% for topic in object_list %}
+    <li><a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'notes:topic-detail' topic.pk %}">{{ topic.title }}</a></li>
+    {% empty %}
+    <li>No topics yet.</li>
+    {% endfor %}
+{% endblock %}
+{% block top_menu %}
+{% if user.is_authenticated %}
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">{{user.username}}</a>
+      </li>
+
+      {% else %}
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+
+      {% endif %}
+<li class="nav-item active"><a class="nav-link" href="{% url 'notes:topic-add' %}">Add topic</a></li>
+<li class="nav-item"><a class="nav-link" href="{% url 'notes:note-list' %}">Go To Notes</a></li>
+     
+{% endblock %}
+{% block page_heading %}{% endblock %}
+{% block content %}{% endblock %}
+
